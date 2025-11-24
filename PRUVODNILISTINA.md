@@ -63,9 +63,29 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
 ### VO 4
 - po vyvolání [SQL skriptu, ze kterého lze odpovědět na VO 4](https://github.com/tichaelam/projekt_z_SQL/blob/main/datovy_podklad_VO), vyjede prázdá tabulka, z čehož lze usuzovat, že růst cen potravin o 10 % nenastal.
 
+## Popis kódů sloupců tabulek
+- t_michaela_ticha_project_sql_primary_final.csv
+| Column Name               | Description                                                   |
+|---------------------------|---------------------------------------------------------------|
+| year                      | Kalendářní rok, ke kterému se záznam vztahuje                |
+| quarter                   | Čtvrtletí (1–4), ve kterém je hodnota evidována              |
+| category_code             | Kód cenové/produktové kategorie                             |
+| category_name             | Název cenové/produktové kategorie                           |
+| unit_standardized         | Standardizovaná jednotka měření (kg, litr, ks)              |
+| avg_price                 | Průměrná cena dané kategorie za období                      |
+| industry_branch_code      | Kód ekonomického/průmyslového odvětví                        |
+| industry_branch_name      | Název ekonomického/průmyslového odvětví                      |
+| avg_wage_yearly_branch    | Průměrná roční mzda v daném odvětví                          |
+| avg_price_yearly          | Průměrná roční cena dané kategorie                           |
+| price_yoy_percent         | Meziroční procentuální změna ceny                            |
+| avg_food_price_yearly     | Průměrná roční cena potravin celkem                          |
+| food_yoy_percent          | Meziroční procentuální změna cen potravin                    |
+| avg_wage_yearly_overall   | Průměrná roční mzda napříč všemi odvětvími                   |
+| wage_yoy_percent          | Meziroční procentuální změna mezd                            |
+| is_bread                  | 1 = položka je chléb, 0 = není                               |
+| is_milk                   | 1 = položka je mléko, 0 = není 
 
 
-#column codes
 #substep description
 - 
 
