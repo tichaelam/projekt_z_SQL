@@ -1,0 +1,103 @@
+-- VO 1 Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
+-- zjistujeme mezirocni rust po odvetvich - za pomoci procentualni zmeny vuci min. roku.
+-- hodnoty < 0 znamenaji, ze mzdy klesaji
+SELECT
+    industry_branch_code,
+    industry_branch_name,
+    year,
+    avg_wage_yearly_branch,
+    LAG(avg_wage_yearly_branch) OVER (PARTITION BY industry_branch_code ORDER BY year) AS previous_year_wage,
+    ROUND(
+        (
+            avg_wage_yearly_branch -
+            LAG(avg_wage_yearly_branch) OVER (PARTITION BY industry_branch_code ORDER BY year)
+        )
+        / NULLIF(LAG(avg_wage_yearly_branch) OVER (PARTITION BY industry_branch_code ORDER BY year), 0) * 100
+    , 2) AS wage_yoy_change_percent
+FROM data_academy_content.t_michaela_ticha_project_sql_primary_final
+GROUP BY industry_branch_code, industry_branch_name, year, avg_wage_yearly_branch
+ORDER BY industry_branch_code, year;
+
+-- VO 2 Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední období?
+-- porovnavame roky 2006 a 2018
+SELECT MIN(year) AS first_year, MAX(year) AS last_year
+FROM data_academy_content.t_michaela_ticha_project_sql_primary_final;
+
+-- mliko
+SELECT
+    year,
+    quarter,
+    industry_branch_code,
+    industry_branch_name,
+    avg_wage_yearly_branch,
+    avg_wage_yearly_overall,
+    avg_price_yearly AS avg_price_milk,
+    ROUND(avg_wage_yearly_overall / avg_price_yearly, 2) AS liters_of_milk_affordable
+FROM data_academy_content.t_michaela_ticha_project_sql_primary_final
+WHERE category_code = 114201   -- MLÉKO
+  AND year IN (
+        (SELECT MIN(year) FROM data_academy_content.t_michaela_ticha_project_sql_primary_final),
+        (SELECT MAX(year) FROM data_academy_content.t_michaela_ticha_project_sql_primary_final)
+      )
+ORDER BY year, quarter, industry_branch_code;
+
+--chleba
+SELECT
+    year,
+    quarter,
+    industry_branch_code,
+    industry_branch_name,
+    avg_wage_yearly_branch,
+    avg_wage_yearly_overall,
+    avg_price_yearly AS avg_price_bread,
+    ROUND(avg_wage_yearly_overall / avg_price_yearly, 2) AS kg_of_bread_affordable
+FROM data_academy_content.t_michaela_ticha_project_sql_primary_final
+WHERE category_code = 111301   -- chléb
+  AND year IN (
+        (SELECT MIN(year) FROM data_academy_content.t_michaela_ticha_project_sql_primary_final),
+        (SELECT MAX(year) FROM data_academy_content.t_michaela_ticha_project_sql_primary_final)
+      )
+ORDER BY year, quarter, industry_branch_code;
+
+-- VO 3 Která kategorie potravin zdražuje nejpomaleji?
+-- neboli, hledame nejnizsi dlouhodoby prumer yoy rustu
+-- ziskame potravinu s nejnizsim procentnim mezirocnim rustem, kde se yoy pocita z celorocnich prumeru
+SELECT
+    category_code,
+    category_name,
+    ROUND(AVG(price_yoy_percent), 2) AS avg_yearly_growth_percent
+FROM data_academy_content.t_michaela_ticha_project_sql_primary_final
+WHERE price_yoy_percent IS NOT NULL
+GROUP BY category_code, category_name
+ORDER BY avg_yearly_growth_percent ASC
+LIMIT 1;
+
+-- VO 4 Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?
+-- zde je vysledkem prazdna tabulka, tudiz data ukazuji, ze rust cen potravin o 10 % nenastal
+SELECT
+    year,
+    food_yoy_percent,
+    wage_yoy_percent
+FROM data_academy_content.t_michaela_ticha_project_sql_primary_final
+WHERE food_yoy_percent > 10
+  AND (wage_yoy_percent IS NULL OR wage_yoy_percent < food_yoy_percent)
+GROUP BY year, food_yoy_percent, wage_yoy_percent
+ORDER BY year;
+
+-- VO 5 Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo následujícím roce výraznějším růstem?
+-- avg_food_price_yearly = celkovy cenovy index pro dany rok, standardizovan napric kategoriemi pro jednodussi porovnani, avg_food_yoy_percent je pak mezirocni zmena tohoto indexu
+SELECT
+    p.year,
+    g.gdp,
+    g.population,
+    g.gini,
+    AVG(p.avg_food_price_yearly) AS avg_food_price_yearly,
+    AVG(p.food_yoy_percent) AS avg_food_yoy_percent,
+    AVG(p.avg_wage_yearly_overall) AS avg_wage_yearly_overall,
+    AVG(p.wage_yoy_percent) AS avg_wage_yoy_percent
+FROM data_academy_content.t_michaela_ticha_project_SQL_primary_final p
+JOIN data_academy_content.t_michaela_ticha_project_SQL_secondary_final g
+      ON g.year = p.year
+WHERE g.country = 'Czech Republic'
+GROUP BY p.year, g.gdp, g.population, g.gini
+ORDER BY p.year;
