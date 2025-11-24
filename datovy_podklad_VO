@@ -34,7 +34,7 @@ SELECT
     avg_price_yearly AS avg_price_milk,
     ROUND(avg_wage_yearly_overall / avg_price_yearly, 2) AS liters_of_milk_affordable
 FROM data_academy_content.t_michaela_ticha_project_sql_primary_final
-WHERE category_code = 114201   -- MLÉKO
+WHERE category_code = 114201 
   AND year IN (
         (SELECT MIN(year) FROM data_academy_content.t_michaela_ticha_project_sql_primary_final),
         (SELECT MAX(year) FROM data_academy_content.t_michaela_ticha_project_sql_primary_final)
@@ -52,7 +52,7 @@ SELECT
     avg_price_yearly AS avg_price_bread,
     ROUND(avg_wage_yearly_overall / avg_price_yearly, 2) AS kg_of_bread_affordable
 FROM data_academy_content.t_michaela_ticha_project_sql_primary_final
-WHERE category_code = 111301   -- chléb
+WHERE category_code = 111301  
   AND year IN (
         (SELECT MIN(year) FROM data_academy_content.t_michaela_ticha_project_sql_primary_final),
         (SELECT MAX(year) FROM data_academy_content.t_michaela_ticha_project_sql_primary_final)
