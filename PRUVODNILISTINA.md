@@ -13,6 +13,17 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
 *3. countries*
 *4. economies*
 
+## Přehled obsahu repozitáře
+- **Úvodní dokument  a popis mezivýsledků**
+1. PRUVODNILISTINA.md
+- **SQL skripty**
+1. SQL_script_primary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_primary_final.csv) tabulku
+2. SQL_script_secondary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_secondary_final.csv) tabulku
+3. datovy_podklad_VO - SQL skript, který získá datový podklad k zodpovězení všech VO
+- **tabulky**
+1. t_michaela_ticha_project_sql_primary_final.csv
+2. t_michaela_ticha_project_sql_secondary_final.csv
+   
 ## Hlavní oblasti zájmu
 - V průběhu psaní skriptu bylo stěžejní se zaměřit na několik problematik, aby byl nejenom funkční, ale aby se z výstupních dat daly získat potřebné informace. Tyto problematiky budou sepsány níže.
   
@@ -38,7 +49,7 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
 - pomocí fce LAG() jsem získala hodnotu z roku t-1. Zde jsem také musela vyřešit missing values u let, kde neexistovaly údaje pro předchozí rok.
 
 ### Missing values
-- NULL hodnoty v projentu nejsou nahrazovány ani nulou, ani dopočítáváním. Funkce AVG() M/U ignoruje. Jelikož výpočet *yoy* hodnot požaduje dvě hosnoty, a to hodnoty z t-1 a současného roku, tak kde chyběl jeden nebo oba údaje, je yoy=NULL.
+- NULL hodnoty v projentu nejsou nahrazovány ani nulou, ani dopočítáváním. Funkce AVG() M/U ignoruje. Jelikož výpočet *yoy* hodnot požaduje dvě hosnoty, a to hodnoty z t-1 a současného roku, tak kde chyběl jeden nebo oba údaje, je yoy=NULL. Proto ve finální tabulce je hodně NULL values pro: price_yoy_percent, food_yoy_percent, wage_yoy_percent.
 
 ### Duplicity
 - Funkcí EXTRACT jsme vyloučili chybu ve výpočtu kvartálů u cen potravin.
@@ -46,14 +57,13 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
 ### První a poslední srovnatelné období
 - U VO 2 je identifikace těchto období klíčové. Vybrala jsem tedy jako první období první kartál provního roku (2006 Q1) a jako poslední čtvrtý kvartál posledního roku (2018 Q4).
 
-U druhé tabulky – jelikož v jednom sloupci jsou pomíchané jak regiony tak státy, museli jsme vyfiltrovat evropské státy skrze https://www.coe.int/en/web/portal/members-states
-hodne null values pro: price_yoy_percent, food_yoy_percent, wage_yoy_percent
+### Filtrace dat
+- V tabulce *economies* jsou ve sloupci *country* pomíchané jak regiony, tak státy, proto jsem musela vyfiltrovat seznam EU států na základě [údajů od Council of Europe](https://www.coe.int/en/web/portal/members-states).
 
-VO 4 Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?
--- zde je vysledkem prazdna tabulka, tudiz data ukazuji, ze rust cen potravin o 10 % nenastal
+### VO 4
+- po vyvolání [SQL skriptu, ze kterého lze odpovědět na VO 4](https://github.com/tichaelam/projekt_z_SQL/blob/main/datovy_podklad_VO), vyjede prázdá tabulka, z čehož lze usuzovat, že růst cen potravin o 10 % nenastal.
 
-  
-# repository contents
+
 
 #column codes
 #substep description
