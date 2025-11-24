@@ -101,7 +101,7 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
 
 
 ## Popis jednotlivých kroků v primárním SQL skriptu
-- Jako poslední bude obsahem úvodního dokumentu komentář k jednotlivým krokům a mezivýsledkům SQL skriptu, které jsou přímo v kódu odděleny označením KROK
+- Obsahem této kapitoly úvodního dokumentu je komentář k jednotlivým krokům a mezivýsledkům SQL skriptu, které jsou přímo v kódu odděleny označením KROK.
   
 **1. KROK** - Příprava dat pro analýzu
 -  Z tabulky czechia_price jsem vybrala pouze řádky, které mají:
