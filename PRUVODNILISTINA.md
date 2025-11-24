@@ -1,4 +1,16 @@
 # Projekt z SQL
+
+## Přehled obsahu repozitáře
+- **Úvodní dokument  a popis mezivýsledků**
+1. PRUVODNILISTINA.md
+- **SQL skripty**
+1. SQL_script_primary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_primary_final.csv) tabulku
+2. SQL_script_secondary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_secondary_final.csv) tabulku
+3. datovy_podklad_VO - SQL skript, který získá datový podklad k zodpovězení všech VO
+- **tabulky**
+1. t_michaela_ticha_project_sql_primary_final.csv
+2. t_michaela_ticha_project_sql_secondary_final.csv
+   
 ## Úvod
 - Projekt se zabývá životní úrovní občanů, a to na základě dostupnosti základních potravin širové veřejnosti. Slouží jako podkladový materiál pro porovnání dostupnosti potravin na základě průměrných příjmů za období od 2006 do 2018, s cílem zodpovězení následujících výzkumných otázek (VO):
 1. Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
@@ -48,17 +60,6 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
 | population  | Počet obyvatel státu                      |
 | gini        | Gini koeficient (míra ekonomické nerovnosti) |
 
-## Přehled obsahu repozitáře
-- **Úvodní dokument  a popis mezivýsledků**
-1. PRUVODNILISTINA.md
-- **SQL skripty**
-1. SQL_script_primary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_primary_final.csv) tabulku
-2. SQL_script_secondary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_secondary_final.csv) tabulku
-3. datovy_podklad_VO - SQL skript, který získá datový podklad k zodpovězení všech VO
-- **tabulky**
-1. t_michaela_ticha_project_sql_primary_final.csv
-2. t_michaela_ticha_project_sql_secondary_final.csv
-   
 ## Hlavní oblasti zájmu
 - V průběhu psaní skriptu bylo stěžejní se zaměřit na několik problematik, aby byl nejenom funkční, ale aby se z výstupních dat daly získat potřebné informace. Tyto problematiky budou sepsány níže.
   
