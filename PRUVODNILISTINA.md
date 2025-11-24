@@ -65,21 +65,26 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
 
 ## Popis kódů sloupců tabulek
 - t_michaela_ticha_project_sql_primary_final.csv
-## Table Description
 
-| Column Name               | Description                                                   |
+| Název                     | Popis                                                         |
 |---------------------------|---------------------------------------------------------------|
 | year                      | Kalendářní rok, ke kterému se záznam vztahuje                |
-| quarter                   | Čtvrtletí (1–4), ve kterém je hodnota evidována              |
-| category_code             | Kód cenové/produktové kategorie                             |
-| category_name             | Název cenové/produktové kategorie                           |
+| quarter                   | Čtvrtletí (Q1–Q4), ve kterém je hodnota zjišťována           |
+| category_code             | Kód potravinové kategorie                                    |
+| category_name             | Název potravinové kategorie                                  |
 | unit_standardized         | Standardizovaná jednotka měření (kg, litr, ks)              |
 | avg_price                 | Průměrná cena dané kategorie za období                      |
-| industry_branch_code      | Kód ekonomického/průmyslového odvětví                        |
-| industry_branch_name      | Název ekonomického/průmyslového odvětví                      |
+| industry_branch_code      | Kód průmyslového odvětví                                    |
+| industry_branch_name      | Název průmyslového odvětví                                  |
 | avg_wage_yearly_branch    | Průměrná roční mzda v daném odvětví                          |
 | avg_price_yearly          | Průměrná roční cena dané kategorie                           |
-| price_yoy_percent         | Meziroční procentuální
+| price_yoy_percent         | Meziroční procentuální změna ceny                            |
+| avg_food_price_yearly     | Průměrná roční cena potravin celkem                          |
+| food_yoy_percent          | Meziroční procentuální změna cen potravin                    |
+| avg_wage_yearly_overall   | Průměrná roční mzda všech odvětví                            |
+| wage_yoy_percent          | Meziroční procentuální změna mezd                            |
+| is_bread                  | Změna dostupnosti chleba v čase, 1 = TRUE, 0 = FALSE         |
+| is_milk                   | Změna dostupnosti mléka v čase, 1 = TRUE, 0 = FALSE          |
 
 
 
