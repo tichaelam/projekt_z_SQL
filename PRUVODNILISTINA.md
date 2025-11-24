@@ -30,11 +30,13 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
 | avg_price_yearly          | Průměrná roční cena dané kategorie                           |
 | price_yoy_percent         | Meziroční procentuální změna ceny                            |
 | avg_food_price_yearly     | Průměrná roční cena potravin celkem                          |
-| food_yoy_percent          | Meziroční procentuální změna cen potravin                    |
+| food_yoy_percent          | Meziroční procentuální změna cen potravin*                    |
 | avg_wage_yearly_overall   | Průměrná roční mzda všech odvětví                            |
 | wage_yoy_percent          | Meziroční procentuální změna mezd                            |
 | is_bread                  | Změna dostupnosti chleba v čase, 1 = TRUE, 0 = FALSE         |
 | is_milk                   | Změna dostupnosti mléka v čase, 1 = TRUE, 0 = FALSE          |
+
+*Year over Year (= porovnání hodnoty v aktuálním roce se stejným ukazatelem z předchozího roku)
 
 - t_michaela_ticha_project_sql_secondary_final.csv
 
@@ -115,7 +117,7 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
  - quarter
  - category_code
 - Mezivýsledek: View price_quarterly_raw:
- - 1 řádek = 1 rok × 1 kvartál × 1 potravinová kategorie
+ - 1 řádek = 1 rok/ 1 kvartál/ 1 potravinová kategorie
  - sloupec avg_price_raw = surový kvartální průměr ceny
 
 **3. KROK** - vytvoření payroll_clean
@@ -154,18 +156,18 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
   - price_yoy_raw = meziroční změna (%)
 - POZNÁMKA: První rok v každé kategorii má price_yoy_raw = NULL, protože neexistuje předchozí hodnota.
 
-8. KROK - Potravinový index a yoy růsty mezd a potravin
+**8. KROK** - Potravinový index a yoy růsty mezd a potravin
 - Vzniká agregovaný potravinový index a jeho meziroční změny, které jsem zároveň porovnala s yoy růstem průměrné mzdy v ČR.
 - Z price_yearly_by_cat_raw jsem vytvořila view food_year, kde je pro každý rok spočítán průměr skrze všechny kategorie (avg_food_price_yearly_raw). Toto jsem spojila s roční průměrnou mzdou (payroll_yearly_avg_overall_raw) a zase aplikovala fci LAG pro výpočet food_yoy_raw (yoy růst avg_food_price_yearly_raw) a wage_yoy_raw (yoy růst průměrné mzdy)
 - Mezivýsledek: View food_and_wage_yearly_raw:
    - 1 řádek = 1 rok
-   - avg_food_price_yearly_raw = průměrná roční „cena koše potravin“
+   - avg_food_price_yearly_raw = průměrná roční cena souboru konkrétních potravin
    - avg_wage_yearly_overall_raw = průměrná roční mzda
    - food_yoy_raw = yoy potravin
    - wage_yoy_raw = yoy mezd
      
-**9. KROK** - Vytvoření finální tabulky
+**9. KROK** - vytvoření finální tabulky
 - Zde dochází ke spojení všech mezivýsledků do tabulky t_michaela_ticha_project_sql_primary_final, raw hodnoty zaokrouhluji. 
 
-**10. KROK** - Flagování kategorií pro chleba a mléka
+**10. KROK** - flagování kategorií pro chleba a mléko
 - Přidávám dva sloupce typu boolean, pro jednoduché zodpovězení VO 2. 
