@@ -99,10 +99,10 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
 - po vyvolání [SQL skriptu, ze kterého lze odpovědět na VO 4](https://github.com/tichaelam/projekt_z_SQL/blob/main/datovy_podklad_VO), vyjede prázdná tabulka, z čehož lze usuzovat, že růst cen potravin o 10 % nenastal.
 
 
-## Popis jednotlivých kroků v SQL skriptech
+## Popis jednotlivých kroků v primárním SQL skriptu
 - Jako poslední bude obsahem úvodního dokumentu komentář k jednotlivým krokům a mezivýsledkům SQL skriptu, které jsou přímo v kódu odděleny označením KROK
   
-**1. KROK** - příprava dat pro analýzu
+**1. KROK** - Příprava dat pro analýzu
 -  Z tabulky czechia_price jsem vybrala pouze řádky, které mají:
  - platný časový údaj date_from (není NULL)
  - platný region_code (není NULL)
@@ -111,7 +111,7 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
   - 1 řádek = 1 měření ceny v konkrétním regionu + odvozený rok a kvartál
   - odstraněny řádky bez data nebo regionu
     
-**2. KROK** - kvartální agregace
+**2. KROK** - Kvartální agregace
 - Z view price_with_quarter jsme spočítali průměrné kvartální ceny (AVG(value)) pro každou kombinaci:
  - year
  - quarter
@@ -120,7 +120,7 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
  - 1 řádek = 1 rok/ 1 kvartál/ 1 potravinová kategorie
  - sloupec avg_price_raw = surový kvartální průměr ceny
 
-**3. KROK** - vytvoření payroll_clean
+**3. KROK** - Vytvoření payroll_clean
 - Z tabulky czechia_payroll jsem vybrala jen ty informace, které reprezentují průměrnou hrubou mzdu na zaměstnance (value_type_code = 5958), jsou počítány jako průměr (calculation_code = 100), mají vyplněné průmyslové odvětví (industry_branch_code IS NOT NULL) a mají vyplněnou hodnotu (value IS NOT NULL).
 - Zároveň jsem vytvořila sloupce:
   - payroll_year → year
@@ -166,8 +166,17 @@ Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP 
    - food_yoy_raw = yoy potravin
    - wage_yoy_raw = yoy mezd
      
-**9. KROK** - vytvoření finální tabulky
+**9. KROK** - Vytvoření finální tabulky
 - Zde dochází ke spojení všech mezivýsledků do tabulky t_michaela_ticha_project_sql_primary_final, raw hodnoty zaokrouhluji. 
 
-**10. KROK** - flagování kategorií pro chleba a mléko
-- Přidávám dva sloupce typu boolean, pro jednoduché zodpovězení VO 2. 
+**10. KROK** - Flagování kategorií pro chleba a mléko
+- Přidávám dva sloupce typu boolean, pro jednoduché zodpovězení VO 2.
+
+## Popis jednotlivých kroků v sekundárním SQL skriptu
+- Přímo ve skriptu se žádné rozdělení na kroky nenachází, jelikož je kód podstatěji kratší. Proto jen obecně popíšu postup:
+  
+**1. KROK** - Zdrojem dat je dataset *economies*, ze kterého vybírám potřebné sloupce country, year, gdp, population a gini.
+
+**2. KROK** - Filtruji období mezi lety 2006 a 2018 a pouze EU státy. Evropské státy musím filtrovat ručně, protože jsou ve sloupci country i celé regiony nebo jiné kategorie zemí.
+
+**3. KROK** - Seřadím tabulku podle country a year a vytvořím finální sekundární tabulku t_michaela_ticha_project_sql_secondary_final.
