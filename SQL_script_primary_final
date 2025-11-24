@@ -13,8 +13,6 @@ FROM czechia_price
 WHERE date_from IS NOT NULL
   AND region_code IS NOT NULL;
 
-
-
 -- 2 KROK
 
 CREATE OR REPLACE VIEW price_quarterly_raw AS
@@ -26,8 +24,6 @@ SELECT
 FROM price_with_quarter
 GROUP BY year, quarter, category_code
 ORDER BY year, quarter, category_code;
-
-
 
 -- 3 KROK
 
@@ -43,8 +39,6 @@ WHERE value_type_code = 5958
   AND industry_branch_code IS NOT NULL
   AND value IS NOT NULL;
 
-
-
 -- 4 KROK
 
 CREATE OR REPLACE VIEW payroll_yearly_avg_branch_raw AS
@@ -56,8 +50,6 @@ FROM payroll_clean
 GROUP BY year, industry_branch_code
 ORDER BY year, industry_branch_code;
 
-
-
 -- 5 KROK
 
 CREATE OR REPLACE VIEW payroll_yearly_avg_overall_raw AS
@@ -67,8 +59,6 @@ SELECT
 FROM payroll_clean
 GROUP BY year
 ORDER BY year;
-
-
 
 -- 6 KROK
 
@@ -80,8 +70,6 @@ SELECT
 FROM price_quarterly_raw
 GROUP BY year, category_code
 ORDER BY year, category_code;
-
-
 
 -- 7 KROK
 
@@ -107,8 +95,6 @@ FROM (
     FROM price_yearly_by_cat_raw
 ) s
 ORDER BY category_code, year;
-
-
 
 -- 8 KROK
 
@@ -148,8 +134,6 @@ SELECT
 FROM food_year fy
 JOIN payroll_yearly_avg_overall_raw w USING (year)
 ORDER BY fy.year;
-
-
 
 -- 9 KROK
 
@@ -199,8 +183,6 @@ LEFT JOIN food_and_wage_yearly_raw fwy
 
 WHERE p.avg_price_raw IS NOT NULL
 ORDER BY p.year, p.quarter, p.category_code, b.industry_branch_code;
-
-
 
 -- 10 KROK
 
