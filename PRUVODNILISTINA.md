@@ -108,16 +108,16 @@
  - platný časový údaj date_from (není NULL)
  - platný region_code (není NULL)
 - Pomocí EXTRACT(YEAR) a EXTRACT(QUARTER) jsem z date_from dopočítala sloupce year a quarter.
-- Mezivýsledek: View price_with_quarter:
+- Mezivýsledek: price_with_quarter:
   - 1 řádek = 1 měření ceny v konkrétním regionu + odvozený rok a kvartál
   - odstraněny řádky bez data nebo regionu
     
 **2. KROK** - Kvartální agregace
-- Z view price_with_quarter jsme spočítali průměrné kvartální ceny (AVG(value)) pro každou kombinaci:
+- Z price_with_quarter jsme spočítali průměrné kvartální ceny (AVG(value)) pro každou kombinaci:
  - year
  - quarter
  - category_code
-- Mezivýsledek: View price_quarterly_raw:
+- Mezivýsledek: price_quarterly_raw:
  - 1 řádek = 1 rok/ 1 kvartál/ 1 potravinová kategorie
  - sloupec avg_price_raw = surový kvartální průměr ceny
 
@@ -126,52 +126,49 @@
 - Zároveň jsem vytvořila sloupce:
   - payroll_year → year
   - payroll_quarter → quarter
-- Mezivýsledek: View payroll_clean:
+- Mezivýsledek: payroll_clean:
   - 1 řádek = 1 rok/ 1 kvartál/ 1 odvětví/ 1 mzdový ukazatel
-- Také byly odstraněny nevhodné typy výpočtů a NULL hodnoty. Z payroll_clean teprve budu počítat roční průměry podle průmyslových odvětví (KROK 4) a celkový roční průměr (KROK 5)
+- Také byly odstraněny nevhodné typy výpočtů a NULL hodnoty. Z payroll_clean jsem dále počítala 4. a 5. KROK.
 
 **4. KROK** - Výpočet roční průměrné mzdy pro každé průmyslové odvětví
 - Pro porovnání s ročními cenami potravin potřebuji také mzdy na roční úrovni, proto jsem z payroll_clean spočítala průměrnou roční mzdu pro každé průmyslové odvětví jako průměr přes 4 kvartály daného roku.
-- Mezivýsledek: View payroll_yearly_avg_branch_raw:
+- Mezivýsledek: payroll_yearly_avg_branch_raw:
   - 1 řádek = 1 rok/ 1 odvětví
   - avg_wage_yearly_branch_raw = roční průměr mezd v daném oboru
 
 **5. KROK** - Průměrná mzda v ČR v daném roce
-- S tímto průměrem budu porovnávat ceny potravin a HDP.
-- Mezivýsledek: View payroll_yearly_avg_overall_raw:
+- Zde jsem počítala průměrnou roční mzdu pro každé průmyslové odvětví.
+- Mezivýsledek: payroll_yearly_avg_overall_raw:
   - 1 řádek = 1 rok
   - avg_wage_yearly_overall_raw = průměrná mzda v celé ČR
 
 **6. KROK** - Roční průměrná cena pro každou kategorii potravin
-- Důležitý krok, stejně jako KROK 5, pro výpočet yoy růstu.
-- Mezivýsledek: View price_yearly_by_cat_raw:
+- Důležitý krok, kvartální ceny jsem agregovala na roční úroveň (výpočet yoy růstu).
+- Mezivýsledek: price_yearly_by_cat_raw:
   - 1 řádek = 1 rok/ 1 kategorie potravin
   - avg_price_yearly_raw = roční průměrná cena potraviny
 
 **7. KROK** - Meziroční růst cen potravin yoy
 - Na roční průměrné ceny (price_yearly_by_cat_raw) jsem aplikovala fci LAG, abych získala cenu v předchozím roce pro danou kategorii. Z ní jsem spočítala meziroční změnu měřenou v procentech (price_yoy_raw).
-- Mezivýsledek: View price_yearly_by_cat_yoy_raw:
-  - 1 řádek = 1 rok/ 1 kategorie
+- Mezivýsledek: price_yearly_by_cat_lag + price_yearly_by_cat_yoy_raw:
   - avg_price_yearly_raw = roční cena
   - prev_price_yearly_raw = cena v předchozím roce
-  - price_yoy_raw = meziroční změna (%)
+  - price_yoy_raw = meziroční změna v procentech.
 - POZNÁMKA: První rok v každé kategorii má price_yoy_raw = NULL, protože neexistuje předchozí hodnota.
-
-**8. KROK** - Potravinový index a yoy růsty mezd a potravin
+  
+**8. KROK** - Potravinový index
 - Vzniká agregovaný potravinový index a jeho meziroční změny, které jsem zároveň porovnala s yoy růstem průměrné mzdy v ČR.
-- Z price_yearly_by_cat_raw jsem vytvořila view food_year, kde je pro každý rok spočítán průměr skrze všechny kategorie (avg_food_price_yearly_raw). Toto jsem spojila s roční průměrnou mzdou (payroll_yearly_avg_overall_raw) a zase aplikovala fci LAG pro výpočet food_yoy_raw (yoy růst avg_food_price_yearly_raw) a wage_yoy_raw (yoy růst průměrné mzdy)
-- Mezivýsledek: View food_and_wage_yearly_raw:
-   - 1 řádek = 1 rok
-   - avg_food_price_yearly_raw = průměrná roční cena souboru konkrétních potravin
-   - avg_wage_yearly_overall_raw = průměrná roční mzda
-   - food_yoy_raw = yoy potravin
-   - wage_yoy_raw = yoy mezd
+- Z price_yearly_by_cat_raw jsem vytvořila food_year, kde je pro každý rok spočítán průměr skrze všechny kategorie (avg_food_price_yearly_raw). Toto jsem spojila s roční průměrnou mzdou (payroll_yearly_avg_overall_raw).
+- Pomocí fce LAG() jsem následně získala hodnoty průměrné ceny potravin a průměrné mzdy z předchozího roku (prev_food a prev_wage), které byly využity pro výpočet food_yoy_raw (yoy růst avg_food_price_yearly_raw) a wage_yoy_raw (yoy růst průměrné mzdy).
+- Mezivýsledek: food_and_wage_yearly_raw:
+  - 1 řádek = 1 rok
+  - avg_food_price_yearly_raw = průměrná roční cena souboru konkrétních potravin
+  - avg_wage_yearly_overall_raw = průměrná roční mzda
+  - food_yoy_raw = yoy potravin
+  - wage_yoy_raw = yoy mezd
      
 **9. KROK** - Vytvoření finální tabulky
-- Zde dochází ke spojení všech mezivýsledků do tabulky t_michaela_ticha_project_sql_primary_final, raw hodnoty zaokrouhluji. 
-
-**10. KROK** - Flagování kategorií pro chleba a mléko
-- Přidávám dva sloupce typu boolean, pro jednoduché zodpovězení VO 2.
+- Zde dochází ke spojení všech mezivýsledků do tabulky t_michaela_ticha_project_sql_primary_final, přičemž raw hodnoty jsou zaokrouhleny pomocí funkce ROUND(). Součástí finální tabulky jsou také sloupce is_bread a is_milk typu BOOLEAN, které označují, zda daný řádek odpovídá kategorii chleba nebo mléka. Sloupce slouží k identifikaci kategorií chleba a mléka pro zodpovězení VO 2.
 
 ## Popis jednotlivých kroků v sekundárním SQL skriptu
 - Přímo ve skriptu se žádné rozdělení na kroky nenachází, jelikož je kód podstatěji kratší. Proto jen obecně popíšu postup:
