@@ -38,6 +38,7 @@ ORDER BY
 
 -- VO 2 Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední období?
 -- porovnáváme první a poslední srovnatelné období, tedy první kvartál roku 2006 a poslední kvartál roku 2018.
+-- nemá cenu vyvolávat výsledky pro všechny kvartály, jelikož řešíme jen průmernou mzdu za všechna odvětví.
 WITH selected_periods AS (
     SELECT
         year,
