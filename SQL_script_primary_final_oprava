@@ -137,7 +137,9 @@ SELECT
     ROUND(fwy.avg_food_price_yearly_raw::numeric, 2) AS avg_food_price_yearly,
     ROUND(fwy.food_yoy_raw::numeric, 2) AS food_yoy_percent,
     ROUND(fwy.avg_wage_yearly_overall_raw::numeric, 2) AS avg_wage_yearly_overall,
-    ROUND(fwy.wage_yoy_raw::numeric, 2) AS wage_yoy_percent
+    ROUND(fwy.wage_yoy_raw::numeric, 2) AS wage_yoy_percent,
+    (p.category_code = 111301) AS is_bread,
+    (p.category_code = 114201) AS is_milk
 FROM price_quarterly_raw p
 JOIN payroll_yearly_avg_branch_raw b
     ON p.year = b.year
@@ -155,11 +157,3 @@ LEFT JOIN food_and_wage_yearly_raw fwy
     ON p.year = fwy.year
 WHERE p.avg_price_raw IS NOT NULL
 ORDER BY p.year, p.quarter, p.category_code, b.industry_branch_code;
--- 10 KROK
-ALTER TABLE data_academy_content.t_michaela_ticha_project_sql_primary_final
-    ADD COLUMN is_bread BOOLEAN,
-    ADD COLUMN is_milk BOOLEAN;
-UPDATE data_academy_content.t_michaela_ticha_project_sql_primary_final
-SET
-    is_bread = (category_code = 111301),
-    is_milk = (category_code = 114201);
