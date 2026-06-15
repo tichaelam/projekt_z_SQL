@@ -39,11 +39,20 @@ ORDER BY
 
 -- ZODPOVĚZENÍ VO 1: Mzdy ve sledovaném období 2006–2018 nerostly ve všech odvětvích nepřetržitě,
 některé odvětví zaznamenaly meziroční poklesy. Nejčastěji k poklesu mezd docházelo v odvětví Těžba a dobývání,
-kde byly zaznamenány celkem čtyři meziroční poklesy průměrných mezd. Ve více odvětvích se objevily dva poklesy mezd, konkrétně v odvětvích Výroba a rozvod elektřiny, plynu, tepla a klimatizovaného vzduchu, Velkoobchod a maloobchod; opravy a údržba motorových vozidel, Ubytování, stravování a pohostinství, Profesní, vědecké a technické činnosti, Veřejná správa a obrana; povinné sociální zabezpečení a Kulturní, zábavní a rekreační činnosti. Další skupinu tvořila odvětví, ve kterých byl zaznamenán pouze jeden meziroční pokles mezd. Jednalo se o Zemědělství, lesnictví a rybářství, Zásobování vodou; činnosti související s odpady a sanacemi, Stavebnictví, Informační a komunikační činnosti, Peněžnictví a pojišťovnictví, Činnosti v oblasti nemovitostí a Vzdělávání. Přestože se v těchto odvětvích objevily dílčí poklesy, celkový dlouhodobý trend vývoje mezd zůstával převážně rostoucí. Naopak v některých odvětvích nebyl zaznamenán žádný meziroční pokles mezd. Jednalo se o Zpracovatelský průmysl, Dopravu a skladování, Administrativní a podpůrné činnosti, Zdravotní a sociální péči a Ostatní činnosti. V těchto sektorech mzdy během sledovaného období buď rostly, nebo stagnovaly. Na základě získaných dat tedy nelze potvrdit, že by mzdy ve všech odvětvích rostly nepřetržitě. Analýza naopak ukázala, že vývoj mezd se mezi jednotlivými odvětvími liší a v řadě z nich docházelo k dočasným meziročním poklesům.
+kde byly zaznamenány celkem čtyři meziroční poklesy průměrných mezd. Ve více odvětvích se objevily dva poklesy mezd,
+konkrétně v odvětvích Výroba a rozvod elektřiny, plynu, tepla a klimatizovaného vzduchu,
+Velkoobchod a maloobchod; opravy a údržba motorových vozidel, Ubytování, stravování a pohostinství,
+Profesní, vědecké a technické činnosti, Veřejná správa a obrana; povinné sociální zabezpečení a Kulturní, zábavní a rekreační činnosti.
+Jeden meziroční pokles zaznamenalo Zemědělství, lesnictví a rybářství, Zásobování vodou; činnosti související s odpady a sanacemi,
+Stavebnictví, Informační a komunikační činnosti, Peněžnictví a pojišťovnictví, Činnosti v oblasti nemovitostí a Vzdělávání.
+Celkový trend vývoje mezd zůstával ale rostoucí. Žádný meziroční pokles mezd se objevil v Zpracovatelský průmysl,
+Doprava a skladování, Administrativní a podpůrné činnosti a Zdravotní a sociální péči a Ostatní činnosti.
+Zde mzdy během sledovaného období buď rostly, nebo stagnovaly. Mzdy ve všech odvětvích nerostly nepřetržitě.
+Vývoj mezd se mezi jednotlivými odvětvími liší a v řadě z nich docházelo k meziročním poklesům.
 
 -- VO 2 Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední období?
 -- porovnáváme první a poslední srovnatelné období, tedy první kvartál roku 2006 a poslední kvartál roku 2018.
--- nemá cenu vyvolávat výsledky pro všechny kvartály, jelikož řešíme jen průmernou mzdu za všechna odvětví.
+-- Nemá cenu vyvolávat výsledky pro všechny kvartály, jelikož řešíme jen průměrnou mzdu za všechna odvětví.
 WITH selected_periods AS (
     SELECT
         year,
@@ -97,6 +106,18 @@ ORDER BY
     sp.quarter,
     sf.category_code;
 
+-- ZODPOVĚZENÍ VO 2: V prvním sledovaném období dosahovala průměrná mzda 20 342,38 Kč, zatímco v posledním sledovaném období vzrostla
+na 31 980,26 Kč, což představuje nárůst přibližně o 57 %. V případě chleba činila jeho průměrná cena v Q1 roku 2006 16,17 Kč
+za 1kg a za tehdejší průměrnou mzdu se dalo koupit přibližně 1 258 kg chleba. Ve 4Q roku 2018 vzrostla cena chleba na 24,24 Kč
+za 1kg a díky vyšším mzdám bylo možné koupit přibližně 1 319 kilogramů chleba za tehdejší průměrnou mzdu.
+Přestože cena chleba během sledovaného období vzrostla, průměrná mzda napříč odvětvími také.
+Podobně to také bylo u mléka. V roce 2006 dosahovala jeho průměrná cena 14,44 Kč za 1l a za tehdejší průměrnou mzdu bylo možné koupit
+přibližně 1 409 l. V roce 2018 se cena mléka zvýšila na 19,82 Kč za 1l, avšak díky růstu mezd se zvýšilo i množství, které si bylo
+možné koupit, a to 1 614 l. Dá se tedy usuzovat, že růst mezd v průběhu sledovaného období převýšil růst cen mléka a chleba.
+Po porovnání prvního a posledního srovnatelného období vychází, že z průměrné mzdy napříč odvětvími
+a z průměrných cen mléka a chleba si veřejnost mohla za průměrnou mzdu koupit větší množství těchto potravin než na začátku
+sledovaného období, i přes to, že ceny chleba i mléka rostly.
+
 -- VO 3 Která kategorie potravin zdražuje nejpomaleji?
 -- neboli, hledame nejnizsi dlouhodoby prumer yoy rustu
 -- ziskame potravinu s nejnizsim procentnim mezirocnim rustem, kde se yoy pocita z celorocnich prumeru
@@ -110,19 +131,39 @@ GROUP BY category_code, category_name
 ORDER BY avg_yearly_growth_percent ASC
 LIMIT 1;
 
+-- ZODPOVĚZENÍ VO 3: Kategorie potravin, která v průběhu sledovaného období zdražovala nejpomaleji, byl krystalový cukr.
+Pro každou kategorii potravin byl vypočítán průměrný meziroční procentuální růst cen a následně byly jednotlivé kategorie seřazeny
+podle dosažené hodnoty. U krystalového cukru byla zjištěna průměrná meziroční změna ceny ve výši -1,92 %.
+Záporná hodnota znamená, že cena cukru ve sledovaném období v průměru neklesala pouze pomaleji než u ostatních potravin,
+ale naopak docházelo k jejímu postupnému zlevňování. Krystalový cukr tak představuje jedinou kategorii, u níž dlouhodobý trend
+neukazuje růst cen, ale mírný pokles. Vývoj ceny cukru naznačuje, že se jedná o outlinera mezi ostatními potravinami.
+
 -- VO 4 Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?
--- zde je vysledkem prazdna tabulka, tudiz data ukazuji, ze rust cen potravin o 10 % nenastal
+-- zde je vysledkem prazdna tabulka
 SELECT
     year,
     food_yoy_percent,
-    wage_yoy_percent
+    wage_yoy_percent,
+    ROUND(food_yoy_percent - wage_yoy_percent, 2) AS difference_percent
 FROM data_academy_content.t_michaela_ticha_project_sql_primary_final
-WHERE food_yoy_percent > 10
-  AND (wage_yoy_percent IS NULL OR wage_yoy_percent < food_yoy_percent)
-GROUP BY year, food_yoy_percent, wage_yoy_percent
-ORDER BY year;
+WHERE wage_yoy_percent IS NOT NULL
+  AND food_yoy_percent - wage_yoy_percent > 10
+GROUP BY
+    year,
+    food_yoy_percent,
+    wage_yoy_percent
+ORDER BY
+    year;
 
--- VO 5 Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo následujícím roce výraznějším růstem?
+-- ZODPOVĚZENÍ VO 4: Pro zodpovězení této otázky jsem porovnala meziroční změny cen potravin (food_yoy_percent)
+a meziroční změny mezd (wage_yoy_percent). Žádné roky nesplnily danou podmínku, ve výsledné tabulce se neobjevil žádný záznam.
+Z toho se dá usuzovat, že v průběhu sledovaného období nenastal rok, kdy by ceny potravin rostly natolik rychle,
+aby převýšily růst mezd o více než stanovenou mezní hodnotu. V některých letech mohly ceny potravin růst rychleji než mzdy, ale tento rozdíl nebyl
+natolik výrazný, aby překročil hranici 10 %. Neexistuje tedy rok, kdy byl nárůst cen potravin výrazně vyšší než růst mezd, a dá se říci,
+že růst mezd byl ve většině případů schopen pokrýt růst cen potravin.
+
+-- VO 5 Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na
+cenách potravin či mzdách ve stejném nebo následujícím roce výraznějším růstem?
 -- avg_food_price_yearly = celkovy cenovy index pro dany rok, standardizovan napric kategoriemi pro jednodussi porovnani, avg_food_yoy_percent je pak mezirocni zmena tohoto indexu
 SELECT
     p.year,
