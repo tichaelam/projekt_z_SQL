@@ -1,4 +1,4 @@
--- *VO 1* Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
+**VO 1 Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?**
 -- zjistujeme mezirocni rust po odvetvich - za pomoci procentualni zmeny vuci min. roku.
 -- fce CASE určila pokles mzdy jako 1, vše ostatní jako 0
 -- pomocí SUM() jsem spočítala, kolikrát mzdy v daném odvětví klesly.
