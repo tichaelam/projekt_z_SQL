@@ -6,13 +6,13 @@
 - **SQL skripty**
 1. SQL_script_primary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_primary_final.csv) tabulku
 2. SQL_script_secondary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_secondary_final.csv) tabulku
-3. datovy_podklad_VO - SQL skripty, které získají datový podklad k zodpovězení všech VO. 
+3. datovy_podklad_VO - zformulované VO a SQL skripty, které získaly datový podklad k zodpovězení VO.
 - **tabulky**
 1. t_michaela_ticha_project_sql_primary_final.csv
 2. t_michaela_ticha_project_sql_secondary_final.csv
    
 ## Úvod
-- Projekt se zabývá životní úrovní občanů, a to na základě dostupnosti základních potravin širové veřejnosti. Slouží jako podkladový materiál pro porovnání dostupnosti potravin na základě průměrných příjmů za období od 2006 do 2018, s cílem zodpovězení následujících výzkumných otázek (VO):
+- Projekt se zabývá životní úrovní občanů, a to na základě dostupnosti základních potravin široké veřejnosti. Slouží jako podkladový materiál pro porovnání dostupnosti potravin na základě průměrných příjmů za období od 2006 do 2018, s cílem zodpovězení následujících výzkumných otázek (VO):
 1. Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
 2. Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
 3. Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)? 
