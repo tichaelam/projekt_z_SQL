@@ -37,6 +37,10 @@ ORDER BY
     number_of_wage_decreases DESC,
     industry_branch_code;
 
+-- ZODPOVĚZENÍ VO 1: Mzdy ve sledovaném období 2006–2018 nerostly ve všech odvětvích nepřetržitě,
+některé odvětví zaznamenaly meziroční poklesy. Nejčastěji k poklesu mezd docházelo v odvětví Těžba a dobývání,
+kde byly zaznamenány celkem čtyři meziroční poklesy průměrných mezd. Ve více odvětvích se objevily dva poklesy mezd, konkrétně v odvětvích Výroba a rozvod elektřiny, plynu, tepla a klimatizovaného vzduchu, Velkoobchod a maloobchod; opravy a údržba motorových vozidel, Ubytování, stravování a pohostinství, Profesní, vědecké a technické činnosti, Veřejná správa a obrana; povinné sociální zabezpečení a Kulturní, zábavní a rekreační činnosti. Další skupinu tvořila odvětví, ve kterých byl zaznamenán pouze jeden meziroční pokles mezd. Jednalo se o Zemědělství, lesnictví a rybářství, Zásobování vodou; činnosti související s odpady a sanacemi, Stavebnictví, Informační a komunikační činnosti, Peněžnictví a pojišťovnictví, Činnosti v oblasti nemovitostí a Vzdělávání. Přestože se v těchto odvětvích objevily dílčí poklesy, celkový dlouhodobý trend vývoje mezd zůstával převážně rostoucí. Naopak v některých odvětvích nebyl zaznamenán žádný meziroční pokles mezd. Jednalo se o Zpracovatelský průmysl, Dopravu a skladování, Administrativní a podpůrné činnosti, Zdravotní a sociální péči a Ostatní činnosti. V těchto sektorech mzdy během sledovaného období buď rostly, nebo stagnovaly. Na základě získaných dat tedy nelze potvrdit, že by mzdy ve všech odvětvích rostly nepřetržitě. Analýza naopak ukázala, že vývoj mezd se mezi jednotlivými odvětvími liší a v řadě z nich docházelo k dočasným meziročním poklesům.
+
 -- VO 2 Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední období?
 -- porovnáváme první a poslední srovnatelné období, tedy první kvartál roku 2006 a poslední kvartál roku 2018.
 -- nemá cenu vyvolávat výsledky pro všechny kvartály, jelikož řešíme jen průmernou mzdu za všechna odvětví.
