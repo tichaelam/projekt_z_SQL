@@ -6,7 +6,7 @@
 - **SQL skripty**
 1. SQL_script_primary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_primary_final.csv) tabulku
 2. SQL_script_secondary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_secondary_final.csv) tabulku
-3. datovy_podklad_VO - SQL skript, který získá datový podklad k zodpovězení všech VO
+3. datovy_podklad_VO - SQL skripty, které získají datový podklad k zodpovězení všech VO. 
 - **tabulky**
 1. t_michaela_ticha_project_sql_primary_final.csv
 2. t_michaela_ticha_project_sql_secondary_final.csv
