@@ -1,58 +1,15 @@
 CREATE TABLE data_academy_content.t_michaela_ticha_project_SQL_secondary_final AS
 SELECT
-    country,
-    year,
-    gdp,
-    population,
-    gini
-FROM economies
-WHERE year BETWEEN 2006 AND 2018
-  AND country IN (
-        'Albania',
-        'Andorra',
-        'Armenia',
-        'Austria',
-        'Azerbaijan',
-        'Belgium',
-        'Bosnia and Herzegovina',
-        'Bulgaria',
-        'Croatia',
-        'Cyprus',
-        'Czech Republic',
-        'Denmark',
-        'Estonia',
-        'Finland',
-        'France',
-        'Georgia',
-        'Germany',
-        'Greece',
-        'Hungary',
-        'Iceland',
-        'Ireland',
-        'Italy',
-        'Latvia',
-        'Liechtenstein',
-        'Lithuania',
-        'Luxembourg',
-        'Malta',
-        'Republic of Moldova',
-        'Monaco',
-        'Montenegro',
-        'Netherlands',
-        'North Macedonia',
-        'Norway',
-        'Poland',
-        'Portugal',
-        'Romania',
-        'San Marino',
-        'Serbia',
-        'Slovak Republic',
-        'Slovenia',
-        'Spain',
-        'Sweden',
-        'Switzerland',
-        'Türkiye',
-        'Ukraine',
-        'United Kingdom'
-   )
-ORDER BY country, year;
+    e.country,
+    e.year,
+    e.gdp,
+    e.population,
+    e.gini
+FROM economies e
+JOIN countries c
+    ON e.country = c.country
+WHERE e.year BETWEEN 2006 AND 2018
+  AND c.continent = 'Europe'
+ORDER BY
+    e.country,
+    e.year;
