@@ -6,7 +6,11 @@
 - **SQL skripty**
 1. SQL_script_primary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_primary_final.csv) tabulku
 2. SQL_script_secondary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_secondary_final.csv) tabulku
-3. datovy_podklad_VO - zformulované VO a SQL skripty, které získaly datový podklad k zodpovězení VO.
+3. datovy_podklad_VO1 - SQL skript, na základě kterého bylo možné získat datový podklad k zodpovězení VO1
+4. datovy_podklad_VO2 - SQL skript, na základě kterého bylo možné získat datový podklad k zodpovězení VO2
+5. datovy_podklad_VO3 - SQL skript, na základě kterého bylo možné získat datový podklad k zodpovězení VO3
+6. datovy_podklad_VO4 - SQL skript, na základě kterého bylo možné získat datový podklad k zodpovězení VO4
+7. datovy_podklad_VO5 - SQL skript, na základě kterého bylo možné získat datový podklad k zodpovězení VO5
 - **tabulky**
 1. t_michaela_ticha_project_sql_primary_final.csv
 2. t_michaela_ticha_project_sql_secondary_final.csv
@@ -162,7 +166,7 @@
 
 **3. KROK** - Seřadím tabulku podle country a year a vytvořím finální sekundární tabulku t_michaela_ticha_project_sql_secondary_final.
 
-## Komnetář k postupu ve SQL skriptech
+## Komentář k postupu ve SQL skriptech
 - V průběhu psaní skriptu bylo stěžejní se zaměřit na několik problematik, aby byl nejenom funkční, ale aby se z výstupních dat daly získat potřebné informace. Tyto problematiky budou sepsány níže.
   
 ### Mzdové údaje
