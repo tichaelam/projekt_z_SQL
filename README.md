@@ -17,7 +17,7 @@
 2. t_michaela_ticha_project_sql_secondary_final.csv
    
 ## Úvod
-- Projekt se zabývá životní úrovní občanů, a to na základě dostupnosti základních potravin široké veřejnosti. Slouží jako podkladový materiál pro porovnání dostupnosti potravin na základě průměrných příjmů za období od 2006 do 2018. Cílem projektu bylo zodpovědět stanovené výzkumné otázky (VO)
+- Projekt se zabývá životní úrovní občanů, a to na základě dostupnosti základních potravin široké veřejnosti. Slouží jako podkladový materiál pro porovnání dostupnosti potravin na základě průměrných příjmů za období od 2006 do 2018. Cílem projektu bylo zodpovědět stanovené výzkumné otázky (VO).
 
 ## Výzkumné otázky
 1. Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
