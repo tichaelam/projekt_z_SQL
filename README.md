@@ -3,14 +3,15 @@
 ## Přehled obsahu repozitáře
 - **Úvodní dokument  a popis mezivýsledků**
 1. README.md
-- **SQL skripty**
+- **hlavní SQL skripty**
 1. SQL_script_primary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_primary_final.csv) tabulku
 2. SQL_script_secondary_final - SQL skript generující [tuto](https://github.com/tichaelam/projekt_z_SQL/blob/main/t_michaela_ticha_project_sql_secondary_final.csv) tabulku
-3. datovy_podklad_VO1 - SQL skript, na základě kterého bylo možné získat datový podklad k zodpovězení VO1
-4. datovy_podklad_VO2 - SQL skript, na základě kterého bylo možné získat datový podklad k zodpovězení VO2
-5. datovy_podklad_VO3 - SQL skript, na základě kterého bylo možné získat datový podklad k zodpovězení VO3
-6. datovy_podklad_VO4 - SQL skript, na základě kterého bylo možné získat datový podklad k zodpovězení VO4
-7. datovy_podklad_VO5 - SQL skript, na základě kterého bylo možné získat datový podklad k zodpovězení VO5
+- **SQL skripty, na základě kterých bylo možné získat datový podklad k zodpovězení výzkumných otázek**
+3. datovy_podklad_VO1
+4. datovy_podklad_VO2
+5. datovy_podklad_VO3
+6. datovy_podklad_VO4
+7. datovy_podklad_VO5
 - **tabulky**
 1. t_michaela_ticha_project_sql_primary_final.csv
 2. t_michaela_ticha_project_sql_secondary_final.csv
