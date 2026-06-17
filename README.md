@@ -163,7 +163,7 @@
   
 **1. KROK** - Zdrojem dat je dataset *economies*, ze kterého vybírám potřebné sloupce country, year, gdp, population a gini.
 
-**2. KROK** - Filtruji období mezi lety 2006 a 2018 a pouze EU státy. Evropské státy musím filtrovat ručně, protože jsou ve sloupci country i celé regiony nebo jiné kategorie zemí.
+**2. KROK** - Filtruji období mezi lety 2006 a 2018 a pouze EU státy (continent = "Europe").
 
 **3. KROK** - Seřadím tabulku podle country a year a vytvořím finální sekundární tabulku t_michaela_ticha_project_sql_secondary_final.
 
@@ -199,9 +199,3 @@
 
 ### První a poslední srovnatelné období
 - U VO 2 je identifikace těchto období klíčové. Vybrala jsem tedy jako první období první kvartál prvního roku (2006 Q1) a jako poslední čtvrtý kvartál posledního roku (2018 Q4).
-
-### Filtrace dat
-- V tabulce *economies* jsou ve sloupci *country* pomíchané jak regiony, tak státy, proto jsem musela vyfiltrovat seznam EU států na základě [údajů od Council of Europe](https://www.coe.int/en/web/portal/members-states).
-
-### VO 4
-- po vyvolání [SQL skriptu, ze kterého lze odpovědět na VO 4](https://github.com/tichaelam/projekt_z_SQL/blob/main/datovy_podklad_VO), vyjede prázdná tabulka, z čehož lze usuzovat, že růst cen potravin o 10 % nenastal.
